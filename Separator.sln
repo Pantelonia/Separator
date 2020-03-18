@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Separador", "Separador\Separador.csproj", "{CF2E48AB-47FD-4971-988C-997D9E584063}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Separator", "Separador\Separator.csproj", "{CF2E48AB-47FD-4971-988C-997D9E584063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

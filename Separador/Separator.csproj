@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dish.cs" />
+    <Compile Include="Friend.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
