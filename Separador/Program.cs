@@ -24,6 +24,9 @@ namespace Separator
             Friend vova = new Friend("Vova");
             group.Add_friend(vova);
 
+            paul.Add_dish(dish);
+            paul.Print_all_dishes();
+
             group.Print_all_member();
             Console.WriteLine(dish.Name);
             Console.ReadKey();

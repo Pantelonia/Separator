@@ -10,7 +10,7 @@ namespace Separador
     {
         private static void Display_menu( string[] items)
         {
-            Console.WriteLine("Choose menu item");
+            Console.WriteLine("Choose menu item:");
             int i = 0;
             foreach(string item in items)
             {

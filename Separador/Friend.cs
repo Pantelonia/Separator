@@ -25,10 +25,17 @@ namespace Separator
                 return name;
             }
         }
-
+        
         public void Add_dish(Dish dish)
         {
             dishes.Add(dish);
+        }
+        public void Print_all_dishes() { 
+        
+            foreach(Dish dish in dishes)
+            {
+                Console.WriteLine(dish);
+            }
         }
 
         public Friend() : this("Unnamed") { }
