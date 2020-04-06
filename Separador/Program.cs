@@ -11,27 +11,13 @@ namespace Separator
     {
         static void Main(string[] args)
         {
-            //Dish dish = new Dish( "Eggs", 40, true);
-            //Group group = new Group("Pokorili");
-            //Friend paul = new Friend("Paul");
-            //group.Add_friend(paul);
-
-            //Friend serjey = new Friend("Serjey");
-            //group.Add_friend(serjey);
-
-            //Friend alex = new Friend("Alex");
-            //group.Add_friend(alex);
-
-            //Friend vova = new Friend("Vova");
-            //group.Add_friend(vova);
-
-            //paul.Add_dish(dish);
-            //paul.Print_all_dishes();
-
-            //group.Print_all_member();
-            //Console.WriteLine(dish.Name);
-            //Console.ReadKey();
-            Menu welcome = new Menu();
+            Console.WriteLine("Welcome to Separator\n It is console app that can help you split the bill with your friend\n");
+            Menu.Menu welcome = new Menu.Menu();
+            welcome.Add("Test menu1", () => Console.WriteLine("TEst1"));
+            welcome.Add("Test menu2", () => Console.WriteLine("TEst2"));
+            welcome.Add("Test menu3", () => Console.WriteLine("TEst3"));
+            welcome.Display();
+            Console.ReadKey();
 
         }
     }
