@@ -41,8 +41,9 @@ namespace Separator
             }
         }
 
-        public void Add_friend(Friend friend)
+        public void Add_friend(string name)
         {
+            Friend friend = new Friend(name);
             friends.Add(friend);
         }
 

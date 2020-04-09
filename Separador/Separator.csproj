@@ -47,6 +47,7 @@
     <Compile Include="Friend.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\Page.cs" />
     <Compile Include="Menu\Option.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

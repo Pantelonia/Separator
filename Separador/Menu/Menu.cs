@@ -1,47 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Separator.Menu
 {
     public class Menu
     {
-        private IList<Option> Options { get; set; }
+        public void Create_group()
+        {
+            Console.WriteLine("Under what name will people remember you?\n");
+            string group_name = Console.ReadLine();
+            Group group = new Group(group_name);
+            Console.WriteLine("What is the name of your brave leader?\n");
+            string name = Console.ReadLine();
+            group.Add_friend(name);
+            group.Print_all_member();
+
+        }
+
 
         public Menu()
         {
-            Options = new List<Option>();
-        }
+            Page init_group = new Page();
 
-        public void Display()
-        {
-            for (int i = 0; i < Options.Count; i++)
-            {
-                Console.WriteLine("{0}. {1}", i + 1, Options[i].Name);
-            }
-            string input = Console.ReadLine();
-            int choice;
+            Console.WriteLine("Welcome to Separator\n It is console app that can help you split the bill with your friend\n");
+            Page welcome = new Page();
+            welcome.Add("New day, new group", () => Create_group());
+            welcome.Add("Find my group", () => Console.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember all pepole(task in progress)\n"));
+            welcome.Display();
+            Console.ReadKey();
+            Console.WriteLine("What is the name of your brave leader?\n");
+            Console.ReadKey();
 
-            while (!int.TryParse(input, out choice))
-            {
-                Console.WriteLine("Please enter an integer");
-                input = Console.ReadLine();
-            }
 
-            Options[choice - 1].Callback();
-        }
-
-        public Menu Add(string option, Action callback)
-        {
-            return Add(new Option(option, callback));
-        }
-
-        public Menu Add(Option option)
-        {
-            Options.Add(option);
-            return this;
         }
     }
 }
