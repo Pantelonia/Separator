@@ -46,6 +46,7 @@
     <Compile Include="Dish.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="Menu\Main_page.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\Page.cs" />
     <Compile Include="Menu\Option.cs" />

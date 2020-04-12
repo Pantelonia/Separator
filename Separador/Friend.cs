@@ -26,6 +26,15 @@ namespace Separator
             }
         }
         
+        public void Add_dish()
+        {
+            Console.WriteLine("Input name of dish");
+            string name = Console.ReadLine();
+            Console.WriteLine("Input cost");
+            int cost = int.Parse(Console.ReadLine());
+            dishes.Add(new Dish(name, cost));
+
+        }
         public void Add_dish(Dish dish)
         {
             dishes.Add(dish);

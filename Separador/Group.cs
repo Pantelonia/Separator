@@ -10,7 +10,7 @@ namespace Separator
     {
         private string name;
         private decimal total_cost;
-        private List<Friend> friends;
+        public List<Friend> friends;
 
         public string Name
         {

@@ -11,8 +11,8 @@ namespace Separator
         private string name;
         private decimal cost;
         //Dish may be of two types: 
-        //    0 - personally, when only you eat this dish
-        //    1 - communal, when all friands eat this dish(i.e. snack)
+        //    false - personally, when only you eat this dish(defaul value)
+        //    true - communal, when all friands eat this dish(i.e. snack)
             
         public bool type;
         public string Name
@@ -44,12 +44,8 @@ namespace Separator
             }
         }
 
-        public Dish() : this("Unname", 0, true){ }
-        public Dish(string name, decimal cost)
-        {
-            Name = name;
-            Cost = cost;
-        }
+        public Dish() : this("Unname", 0){ }
+        public Dish(string name, decimal cost): this(name, cost, false) { }
         public Dish(string name, decimal cost, bool type)
         {
             Name = name;

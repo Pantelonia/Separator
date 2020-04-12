@@ -16,19 +16,24 @@ namespace Separator.Menu
 
         }
 
-
-        public Menu()
+        private Page Create_welcome_page()
         {
-            Page init_group = new Page();
-
-            Console.WriteLine("Welcome to Separator\n It is console app that can help you split the bill with your friend\n");
             Page welcome = new Page();
             welcome.Add("New day, new group", () => Create_group());
             welcome.Add("Find my group", () => Console.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember all pepole(task in progress)\n"));
+            return (welcome);
+        }
+
+
+        public Menu()
+        {
+            Console.WriteLine("Welcome to Separator\n It is console app that can help you split the bill with your friend\n");
+            Page welcome = Create_welcome_page();
             welcome.Display();
-            Console.ReadKey();
-            Console.WriteLine("What is the name of your brave leader?\n");
-            Console.ReadKey();
+            Console.ReadKey();       
+
+
+
 
 
         }
