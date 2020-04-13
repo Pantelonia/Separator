@@ -45,7 +45,15 @@ namespace Separator.Menu
         }
         private void Create_communal_dish()
         {
-             
+            Console.WriteLine("Input name of dish");
+            string name = Console.ReadLine();
+            Console.WriteLine("Input cost");
+            int cost = int.Parse(Console.ReadLine());
+            int dif_cost = cost / group.friends.Count();
+            foreach(Friend friend in group.friends)
+            {
+                friend.Add_dish(new Dish(name, dif_cost, true));
+            }                   
         }
         private void Add_new_dish()
         {
