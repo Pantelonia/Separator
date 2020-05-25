@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Separator
 {
-    class Group
+    public class Group
     {
         private string name;
         private decimal total_cost;
         public List<Friend> friends;
+      
 
         public string Name
         {
@@ -41,10 +42,18 @@ namespace Separator
             }
         }
 
-        public void Add_friend(string name)
+        public void AddNewFriend(string name)
         {
             Friend friend = new Friend(name);
             friends.Add(friend);
+            Console.WriteLine("Welcome to the club!\nMembers of {0} group:\n", Name);
+            Print_all_member();
+        }
+        public void DeleteFriend(Friend friend)
+        {
+            friends.Remove(friend);
+            Console.WriteLine("Goodbye, dear friend!\nMembers of {0} group:\n", Name);
+            Print_all_member();
         }
 
         public void Print_all_member()

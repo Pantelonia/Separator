@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Separator
 {
-    class Friend
+    public class Friend
     {
         private string name;
         private List<Dish> dishes;

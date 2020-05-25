@@ -15,6 +15,7 @@ namespace Separator
         {
 
             Menu.Menu menu = new Menu.Menu();
+            Console.ReadKey();
 
         }
     }

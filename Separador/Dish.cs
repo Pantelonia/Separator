@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Separator
 {
-    class Dish
+    public class Dish
     {
         private string name;
         private decimal cost;
