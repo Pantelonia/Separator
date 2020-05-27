@@ -1,4 +1,4 @@
-﻿using LiteDB;
+using LiteDB;
 using System;
 
 namespace Separator.Menu
@@ -9,9 +9,9 @@ namespace Separator.Menu
         {
             var cur_group = db.GetCollection<Group>("current_group");
             cur_group.DeleteAll();
-            cur_group.EnsureIndex(x => x.Name);
             cur_group.Insert(group);            
         }
+
         public void CreateGroup()
         {
             Console.WriteLine("Under what name will people remember you?\n");
@@ -26,26 +26,80 @@ namespace Separator.Menu
             {
                 // Получаем коллекцию
                 var col = db.GetCollection<Group>("group");
-                col.EnsureIndex(x => x.Name);
                 col.Insert(group);
                 // Сохраняем ее как активную группу, удалив преведущую
                 SetCurrent(db, group);
             }
 
         }
+
         public void FindGroup()
+        {
+            Group check;
+            using (var db = new LiteDatabase(@"MyData.db"))
+            {
+                var col = db.GetCollection<Group>("group");
+                check = col.FindOne(Query.All());
+            }
+            if (check == null)
+            {
+                Console.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember some group\n(Create some group befor finding)\n");
+                Console.ReadKey();
+                StartMenu();
+            }
+            else
+            {
+                using (var db = new LiteDatabase(@"MyData.db"))
+                {
+                    Page findPage = new Page();
+                    var col = db.GetCollection<Group>("group");
+                    var groupAll = col.FindAll();
+
+                    foreach (Group g in groupAll)
+                    {
+                        findPage.Add(g.Name, () => SetCurrent(db, g));
+                    }
+                    findPage.Display();
+                }
+            }
+           
+        }
+
+        private void DeleteAll()
         {
             using (var db = new LiteDatabase(@"MyData.db"))
             {
-                Page findPage = new Page();
+                var col = db.GetCollection<Group>("group");
+                col.DeleteAll();
+
+            }
+            StartMenu();
+        }
+
+        private void Delete(Group g, LiteDatabase db)
+        {
+            using (db)
+            {
+                var col = db.GetCollection<Group>("group");
+                col.Delete(g.Id);
+            }
+            
+
+        }
+        private void DeleteGroup()
+        {
+            using (var db = new LiteDatabase(@"MyData.db"))
+            {
+                Page deletePage = new Page();
                 var col = db.GetCollection<Group>("group");
                 var groupAll = col.FindAll();
-                foreach(Group g in groupAll)
+                foreach (Group g in groupAll)
                 {
-                    findPage.Add(g.Name, () => SetCurrent(db, g));
+                    deletePage.Add(g.Name, () => Delete(g, db) );
                 }
-                findPage.Display();
+                deletePage.Display();                
             }
+            StartMenu();
         }
 
         private Page Create_welcome_page()
@@ -53,13 +107,15 @@ namespace Separator.Menu
             Page welcome = new Page();
             welcome.Add("New day, new group", () => CreateGroup());
             welcome.Add("Find my group", () => FindGroup());
-            //welcome.Add("Find my group", () => Console.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember all pepole(task in progress)\n"));
+            welcome.Add("Delete group", () => DeleteGroup());
+            welcome.Add("Delete all gruops", () => DeleteAll());
+            welcome.Add("Exit", () => Environment.Exit(0));
             return (welcome);
         }
 
-
-        public Menu()
+        private void StartMenu()
         {
+            Console.Clear();
             Console.WriteLine("Welcome to Separator\n It is console app that can help you split the bill with your friend\n");
             Page welcome = Create_welcome_page();
             welcome.Display();
@@ -68,10 +124,15 @@ namespace Separator.Menu
             {
                 var col = db.GetCollection<Group>("current_group");
                 current = col.FindOne(Query.All());
-                Console.WriteLine(current.Name);
             }
             Main_page main = new Main_page(current);
             main.Display();
+        }
+
+
+        public Menu()
+        {
+            StartMenu();           
         }
     }
 }

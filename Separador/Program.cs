@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,6 @@ namespace Separator
         
         static void Main(string[] args)
         {
-
             Menu.Menu menu = new Menu.Menu();
             Console.ReadKey();
 

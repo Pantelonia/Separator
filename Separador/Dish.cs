@@ -40,7 +40,7 @@ namespace Separator
             }
             get
             {
-                return Cost;
+                return cost;
             }
         }
 

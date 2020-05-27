@@ -46,6 +46,15 @@ namespace Separator
                 Console.WriteLine(dish);
             }
         }
+        public decimal TakeCost()
+        {
+            decimal cost = 0;
+            foreach(Dish d in dishes)
+            {
+                cost = cost + d.Cost;
+            }
+            return cost;
+        }
 
         public Friend() : this("Unnamed") { }
         public Friend(string name)

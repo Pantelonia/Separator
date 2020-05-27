@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Separator
 {
     public class Group
     {
+        public Guid Id { get; set; }
         private string name;
         private decimal total_cost;
-        public List<Friend> friends;
+        public List<Friend> Friends { get; set; }
       
 
         public string Name
@@ -45,20 +46,50 @@ namespace Separator
         public void AddNewFriend(string name)
         {
             Friend friend = new Friend(name);
-            friends.Add(friend);
-            Console.WriteLine("Welcome to the club!\nMembers of {0} group:\n", Name);
-            Print_all_member();
+            Friends.Add(friend);
+            Console.WriteLine("Welcome to the {0} group!\n", Name);
         }
         public void DeleteFriend(Friend friend)
         {
-            friends.Remove(friend);
-            Console.WriteLine("Goodbye, dear friend!\nMembers of {0} group:\n", Name);
-            Print_all_member();
+            Friends.Remove(friend);
+            Console.WriteLine("Goodbye, dear friend!\nMembers {0} of leave from {1} group:\n", friend.Name, Name);
+        }
+        private Dish ComposeDish(bool type)
+        {
+
+            Console.WriteLine("Input name of dish");
+            string name = Console.ReadLine();
+            Console.WriteLine("Input cost");
+            int cost = int.Parse(Console.ReadLine());
+            Total_cost = Total_cost + cost;
+            if (type)
+                cost = cost / Friends.Count();
+            return new Dish(name, cost, type);
+            
+        }
+        public void Create_personal_dish()
+        {
+            Console.WriteLine("Choose friend:\n");
+            Menu.Page personalDish = new Menu.Page();
+            foreach (Friend f in Friends)
+            {
+                personalDish.Add(f.Name, () => f.Add_dish(ComposeDish(false)));
+            }
+            personalDish.Display();
+        }
+        public void Create_communal_dish()
+        {
+            Dish dish = ComposeDish(true);
+            foreach (Friend friend in Friends)
+            {
+                friend.Add_dish(dish);
+            }
         }
 
         public void Print_all_member()
         {
-            foreach (Friend friend in friends)
+            Console.WriteLine("Members of {0} group:", Name);
+            foreach (Friend friend in Friends)
             {
                 Console.WriteLine($"Name of friend:{friend.Name}");
             }
@@ -70,7 +101,7 @@ namespace Separator
         {
             Name = name;
             Total_cost = total_cost;
-            friends = new List<Friend>();
+            Friends = new List<Friend>();
         }
     }
 }
