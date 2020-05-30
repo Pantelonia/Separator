@@ -8,10 +8,17 @@ namespace Separator.Menu
 {
     public class Page
     {
+        private IConsole myConsole;
         private IList<Option> Options { get; set; }
 
+        public Page(IConsole console)
+        {
+            myConsole = console;
+            Options = new List<Option>();
+        }
         public Page()
         {
+            myConsole = new MyConsole();
             Options = new List<Option>();
         }
 
@@ -19,15 +26,15 @@ namespace Separator.Menu
         {
             for (int i = 0; i < Options.Count; i++)
             {
-                Console.WriteLine("{0}. {1}", i + 1, Options[i].Name);
+                myConsole.WriteLine($"{i + 1}. { Options[i].Name}");
             }
-            string input = Console.ReadLine();
+            string input = myConsole.ReadLine();
             int choice;
 
             while (!int.TryParse(input, out choice))
             {
-                Console.WriteLine("Please enter an integer");
-                input = Console.ReadLine();
+                myConsole.WriteLine("Please enter an integer");
+                input = myConsole.ReadLine();
             }
 
             Options[choice - 1].Callback();

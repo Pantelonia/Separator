@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Separator
 {
-    public class MyConsole
+    public class MyConsole : IConsole
     {
         public void Clear()
         {
