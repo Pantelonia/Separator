@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Separator
 {
-    class Program
+    public class Program
     {
         
         

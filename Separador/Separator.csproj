@@ -54,6 +54,7 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\Page.cs" />
     <Compile Include="Menu\Option.cs" />
+    <Compile Include="MyConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -42,13 +42,22 @@ namespace Separator.Menu
             Display();
         }
         private void AddNewDish()
-        {         
-            Console.WriteLine("More food!\nWhat is type of your dish");
-            Page add_dish = new Page();
-            add_dish.Add("It's dish only for me", () => Group.Create_personal_dish());
-            add_dish.Add("it's dish for all", () => Group.Create_communal_dish());
-            add_dish.Display();
-            Display();
+        {
+            try
+            {
+                Console.WriteLine("More food!\nWhat is type of your dish");
+                Page add_dish = new Page();
+                add_dish.Add("It's dish only for me", () => Group.Create_personal_dish());
+                add_dish.Add("it's dish for all", () => Group.Create_communal_dish());
+                add_dish.Display();
+                Display();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($"Исключение: {ex.ParamName}");
+
+            }
+
         }
         private void DeleteFriend()
         {
