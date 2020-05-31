@@ -10,7 +10,8 @@ namespace Separator
     {
         private IConsole myConsole;
         private string name;
-        private List<Dish> dishes;
+        public List<Dish> dishes;
+       
  
         public string Name
         {

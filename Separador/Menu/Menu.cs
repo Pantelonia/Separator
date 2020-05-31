@@ -6,6 +6,7 @@ namespace Separator.Menu
     public class Menu
     {
         private IConsole myConsole;
+        private bool exit = false;
 
         public void SetCurrent(LiteDatabase db, Group group)
         {
@@ -110,36 +111,43 @@ namespace Separator.Menu
             welcome.Add("Find my group", () => FindGroup());
             welcome.Add("Delete group", () => DeleteGroup());
             welcome.Add("Delete all gruops", () => DeleteAll());
-            welcome.Add("Exit", () => Environment.Exit(0));
+            welcome.Add("Exit", () => exit  = true);
             return (welcome);
         }
 
-        private void StartMenu()
+        public int StartMenu()
         {
             myConsole.Clear();
             myConsole.WriteLine("Welcome to Separator\n It is myConsole app that can help you split the bill with your friend\n");
             Page welcome = Create_welcome_Page();
             welcome.Display();
-            Group current;
-            using (var db = new LiteDatabase(@"MyData.db"))
+            if (exit)
             {
-                var col = db.GetCollection<Group>("current_group");
-                current = col.FindOne(Query.All());
+                return 0;
             }
-            Main_page main = new Main_page(current, myConsole);
-            main.Display();
+            else
+            {
+                Group current;
+                using (var db = new LiteDatabase(@"MyData.db"))
+                {
+                    var col = db.GetCollection<Group>("current_group");
+                    current = col.FindOne(Query.All());
+                }
+                Main_page main = new Main_page(current, myConsole);
+                main.Display();
+                return 0;
+            }
+            
         }
 
         public Menu(IConsole console)
         {
             myConsole = console;
-            StartMenu();
         }
 
         public Menu()
         {
             myConsole = new MyConsole();
-            StartMenu();           
         }
     }
 }

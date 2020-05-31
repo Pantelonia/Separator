@@ -10,15 +10,18 @@ using Moq;
 namespace SeparatorTest
 {
     [TestClass]
-    public class UnitTest1
+    public class MenuUnitTest
     {
         [TestMethod]
+
         public void TestMethod1()
         {
-            var consoleMok = new Mock<MyConsole>();
+            var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
-            .Returns("5"); // add new group          
-            Assert.AreEqual(0, new Menu(consoleMok.Object));
+                .Returns("4")
+                .Returns("5");
+            Menu menu = new Menu(consoleMok.Object);
+            Assert.AreEqual(0, menu.StartMenu());
         }
     }
 }

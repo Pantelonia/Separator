@@ -14,6 +14,7 @@ namespace Separator
         static void Main(string[] args)
         {
             Menu.Menu menu = new Menu.Menu();
+            menu.StartMenu();
         }
     }
 }

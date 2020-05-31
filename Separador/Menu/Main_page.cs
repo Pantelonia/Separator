@@ -85,7 +85,8 @@ namespace Separator.Menu
         }
         private void GoToMenu()
         {
-            Menu menu = new Menu();
+            Menu menu = new Menu(myConsole);
+            menu.StartMenu();
         }
         private void Separate()
         {
