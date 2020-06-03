@@ -52,11 +52,11 @@ namespace SeparatorTest
         [TestMethod]
         public void ShowDish()
         {
-            Dish dish = new Dish("Pizza", 100);
+            Dish dish = new Dish();
             Friend friend = new Friend("paul");
             friend.Add_dish(dish);
             friend.Print_all_dishes();
-            Assert.AreEqual("Pizza", friend.dishes[0].Name);
+            Assert.AreEqual("Unname", friend.dishes[0].Name);
         }
 
     }

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CF2E48AB-47FD-4971-988C-997D9E584063}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Separador</RootNamespace>
-    <AssemblyName>Separador</AssemblyName>
+    <RootNamespace>Separator</RootNamespace>
+    <AssemblyName>Separator</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,8 +36,8 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LiteDB, Version=5.0.7.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiteDB.5.0.7\lib\net45\LiteDB.dll</HintPath>
+    <Reference Include="LiteDB, Version=5.0.8.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.5.0.8\lib\net45\LiteDB.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -61,6 +61,7 @@
     <Compile Include="Friend.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IConsole.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Menu\Main_page.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\Page.cs" />

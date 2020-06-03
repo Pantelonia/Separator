@@ -117,26 +117,26 @@ namespace Separator.Menu
 
         public int StartMenu()
         {
-            myConsole.Clear();
-            myConsole.WriteLine("Welcome to Separator\n It is myConsole app that can help you split the bill with your friend\n");
-            Page welcome = Create_welcome_Page();
-            welcome.Display();
-            if (exit)
+            while (!exit)
             {
-                return 0;
-            }
-            else
-            {
-                Group current;
-                using (var db = new LiteDatabase(@"MyData.db"))
+                myConsole.Clear();
+                myConsole.WriteLine("Welcome to Separator\n It is myConsole app that can help you split the bill with your friend\n");
+                Page welcome = Create_welcome_Page();
+                welcome.Display();
+                if (!exit)
                 {
-                    var col = db.GetCollection<Group>("current_group");
-                    current = col.FindOne(Query.All());
+                    Group current;
+                    using (var db = new LiteDatabase(@"MyData.db"))
+                    {
+                        var col = db.GetCollection<Group>("current_group");
+                        current = col.FindOne(Query.All());
+                    }
+                    Main_page main = new Main_page(current, myConsole);
+                    main.Start();
                 }
-                Main_page main = new Main_page(current, myConsole);
-                main.Display();
-                return 0;
+               
             }
+            return 0;
             
         }
 
