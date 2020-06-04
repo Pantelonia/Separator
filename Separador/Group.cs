@@ -12,7 +12,6 @@ namespace Separator
         private string name;
         private decimal total_cost;
         public List<Friend> Friends { get; set; }
-        private IConsole myConsole;
       
 
         public string Name
@@ -48,20 +47,17 @@ namespace Separator
         {
             Friend friend = new Friend(name);
             Friends.Add(friend);
-            myConsole.WriteLine($"Welcome to the {Name} group!\n" );
+            Console.WriteLine($"Welcome to the {Name} group!\n" );
         }
         public void DeleteFriend(Friend friend)
         {
             Friends.Remove(friend);
-            myConsole.WriteLine($"Goodbye, dear friend!\nMembers {friend.Name} of leave from {Name} group:\n");
+            Console.WriteLine($"Goodbye, dear friend!\nMembers {friend.Name} of leave from {Name} group:\n");
         }
         private Dish ComposeDish(bool type)
         {
-
-            myConsole.WriteLine("Input name of dish");
-            string name = myConsole.ReadLine();
-            myConsole.WriteLine("Input cost");
-            int cost = int.Parse(myConsole.ReadLine());
+            string name = Input.ReadString("Input name of dish");
+            int cost = Input.ReadInt("Input cost", min:0,max: Int32.MaxValue);
             Total_cost = Total_cost + cost;
             if (type)
                 cost = cost / Friends.Count();
@@ -70,8 +66,8 @@ namespace Separator
         }
         public void Create_personal_dish()
         {
-            myConsole.WriteLine("Choose friend:\n");
-            Menu.Page personalDish = new Menu.Page(myConsole);
+            Console.WriteLine("Choose friend:\n");
+            Menu.Page personalDish = new Menu.Page();
             foreach (Friend f in Friends)
             {
                 personalDish.Add(f.Name, () => f.Add_dish(ComposeDish(false)));
@@ -89,22 +85,20 @@ namespace Separator
 
         public void Print_all_member()
         {
-            myConsole.WriteLine($"Members of {Name} group:");
+            Console.WriteLine($"Members of {Name} group:");
             foreach (Friend friend in Friends)
             {
-                myConsole.WriteLine($"Name of friend:{friend.Name}");
+                Console.WriteLine($"Name of friend:{friend.Name}");
             }
         }
 
         public Group() : this("Unnamed") { }
-        public Group(string name) : this(name, new MyConsole()) { }
-        public Group(string name, IConsole console) : this(name, console, 0) { }
-        public Group(string name, IConsole console, decimal total_cost)
+        public Group(string name) : this(name, 0) { }
+        public Group(string name, decimal total_cost)
         {
             Name = name;
             Total_cost = total_cost;
             Friends = new List<Friend>();
-            myConsole = console;
         }
     }
 }

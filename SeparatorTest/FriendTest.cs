@@ -34,8 +34,9 @@ namespace SeparatorTest
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
                 .Returns("Pizza")
-                .Returns("100");            
-            Friend friend = new Friend("paul", consoleMok.Object);
+                .Returns("100");
+            Input.myConsole = consoleMok.Object;
+            Friend friend = new Friend("paul");
             friend.Add_dish();
             Assert.AreEqual("Pizza", friend.dishes[0].Name);
         }

@@ -21,7 +21,8 @@ namespace SeparatorTest
             consoleMok.SetupSequence(c => c.ReadLine())
                 .Returns("4")
                 .Returns("5");
-            Menu menu = new Menu(consoleMok.Object);
+            Input.myConsole = consoleMok.Object;
+            Menu menu = new Menu();
             Assert.AreEqual(0, menu.StartMenu());
         }
         [TestMethod]
@@ -32,7 +33,8 @@ namespace SeparatorTest
             consoleMok.SetupSequence(c => c.ReadLine())
                 .Returns("Gr")
                 .Returns("Pl");
-            Menu menu = new Menu(consoleMok.Object);
+            Input.myConsole = consoleMok.Object;
+            Menu menu = new Menu();
             menu.CreateGroup();
             Group group;
             using (var db = new LiteDatabase(@"MyData.db"))
@@ -43,7 +45,51 @@ namespace SeparatorTest
             Group group2 = new Group("Gr");
             Assert.AreEqual(group2.Name, group.Name);
         }
+        [TestMethod]
+        public void FindGroupTest()
+        {
+            var consoleMok = new Mock<MyConsole>().As<IConsole>();
+            consoleMok.SetupSequence(c => c.ReadLine())
+                .Returns("group")
+                .Returns("paul")
+                .Returns("1");
+            Input.myConsole = consoleMok.Object;
+            Menu menu = new Menu();
+            menu.CreateGroup();
+            menu.FindGroup();
+            Group group;
+            using (var db = new LiteDatabase(@"MyData.db"))
+            {
+                var col = db.GetCollection<Group>("current_group");
+                group = col.FindOne(x => x.Name.Equals("Group"));
+            }
+            Group group2 = new Group("Group");
+            Assert.AreEqual(group2.Name, group.Name);
+        }
+        [TestMethod]
+        public void FindInitGroupTest()
+        {
+            var consoleMok = new Mock<MyConsole>().As<IConsole>();
+            consoleMok.SetupSequence(c => c.ReadLine())
+                .Returns("4")
+                .Returns("2")
+                .Returns("group")
+                .Returns("paul")
+                .Returns("7")
+                .Returns("5");
+            Input.myConsole = consoleMok.Object;
+            Menu menu = new Menu();
+            menu.StartMenu();
+            Group group;
+            using (var db = new LiteDatabase(@"MyData.db"))
+            {
+                var col = db.GetCollection<Group>("current_group");
+                group = col.FindOne(x => x.Name.Equals("Group"));
+            }
+            Group group2 = new Group("Group");
+            Assert.AreEqual(group2.Name, group.Name);
+        }
 
-       
+
     }
 }

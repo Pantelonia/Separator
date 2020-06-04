@@ -48,7 +48,8 @@ namespace SeparatorTest
                 .Returns("1")
                 .Returns("Eggs")
                 .Returns("55");
-            Group group = new Group("Voisco", consoleMok.Object);
+            Input.myConsole = consoleMok.Object;
+            Group group = new Group("Voisco");
             group.AddNewFriend("general");
             group.AddNewFriend("king");
             group.Create_personal_dish();
@@ -63,7 +64,8 @@ namespace SeparatorTest
             consoleMok.SetupSequence(c => c.ReadLine())
                 .Returns("Eggs")
                 .Returns("55");
-            Group group = new Group("Voisco", consoleMok.Object);
+            Group group = new Group("Voisco");
+            Input.myConsole = consoleMok.Object;
             group.AddNewFriend("general");
             group.AddNewFriend("king");
             group.Create_communal_dish();

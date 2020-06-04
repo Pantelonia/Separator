@@ -11,7 +11,6 @@ namespace Separator.Menu
     {
         private Group group;
         private bool exit = false;
-        private IConsole myConsole;
         public Group Group
         {
             set
@@ -38,31 +37,20 @@ namespace Separator.Menu
         }
         private void AddNewFriend()
         {
-            myConsole.WriteLine("I see we got a new guy\nWhat's your name?");
-            Group.AddNewFriend(myConsole.ReadLine());
+            Group.AddNewFriend(Input.ReadString("I see we got a new guy\nWhat's your name?"));
             UpdateGroup();
         }
         private void AddNewDish()
-        {
-            try
-            {
-                myConsole.WriteLine("More food!\nWhat is type of your dish");
-                Page add_dish = new Page(myConsole);
-                add_dish.Add("It's dish only for me", () => Group.Create_personal_dish());
-                add_dish.Add("it's dish for all", () => Group.Create_communal_dish());
-                add_dish.Display();
-                
-            }
-            catch(ArgumentOutOfRangeException ex)
-            {
-                myConsole.WriteLine($"Исключение: {ex.ParamName}");
-
-            }
-
+        {        
+            Console.WriteLine("More food!\nWhat is type of your dish");
+            Page add_dish = new Page();
+            add_dish.Add("It's dish only for me", () => Group.Create_personal_dish());
+            add_dish.Add("it's dish for all", () => Group.Create_communal_dish());
+            add_dish.Display();  
         }
         private void DeleteFriend()
         {
-            Page deleteFriend = new Page(myConsole);
+            Page deleteFriend = new Page();
             foreach(Friend f in Group.Friends)
             {
                 deleteFriend.Add(f.Name, () => group.DeleteFriend(f));
@@ -77,7 +65,7 @@ namespace Separator.Menu
         }
         private void TakeBill()
         {
-            myConsole.WriteLine($"Current bill:{ Group.Total_cost}");
+            Console.WriteLine($"Current bill:{ Group.Total_cost}");
         }
         private void GoToMenu()
         {
@@ -88,7 +76,7 @@ namespace Separator.Menu
            foreach(Friend f in Group.Friends)
             {
                 decimal cost = f.TakeCost();
-                myConsole.WriteLine($"{f.Name} should pay - {cost}");
+                Console.WriteLine($"{f.Name} should pay - {cost}");
             }
             
         }
@@ -113,17 +101,10 @@ namespace Separator.Menu
             Add("Back to welcome page", () => GoToMenu());
         }
 
-        public Main_page(Group group, IConsole console)
-        {
-            Group = group;
-            myConsole = console;
-            Init();
-            
-        }
+        
         public Main_page(Group group)
         {
             Group = group;
-            myConsole = new MyConsole();
             Init();
         }
     }

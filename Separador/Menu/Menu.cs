@@ -1,11 +1,12 @@
 using LiteDB;
 using System;
+using System.IO;
+
 
 namespace Separator.Menu
 {
     public class Menu
     {
-        private IConsole myConsole;
         private bool exit = false;
 
         public void SetCurrent(LiteDatabase db, Group group)
@@ -17,11 +18,10 @@ namespace Separator.Menu
 
         public void CreateGroup()
         {
-            myConsole.WriteLine("Under what name will people remember you?\n");
-            string group_name = myConsole.ReadLine();
+            
+            string group_name = Input.ReadString("Under what name will people remember you?\n");
             Group group = new Group(group_name);
-            myConsole.WriteLine("What is the name of your brave leader?\n");
-            string name = myConsole.ReadLine();
+            string name = Input.ReadString("What is the name of your brave leader?\n");
             group.AddNewFriend(name);
             group.Print_all_member();
 
@@ -46,14 +46,14 @@ namespace Separator.Menu
             }
             if (check == null)
             {
-                myConsole.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember some group\n(Create some group befor finding)\n");
-                StartMenu();
+                Console.WriteLine("Hmmm.. . My memory's not what it was earlier. I can't remember some group\n(Create some group befor finding)\n");
+                CreateGroup();
             }
             else
             {
                 using (var db = new LiteDatabase(@"MyData.db"))
                 {
-                    Page findPage = new Page(myConsole);
+                    Page findPage = new Page();
                     var col = db.GetCollection<Group>("group");
                     var groupAll = col.FindAll();
 
@@ -67,7 +67,7 @@ namespace Separator.Menu
            
         }
 
-        private void DeleteAll()
+        public void DeleteAll()
         {
             using (var db = new LiteDatabase(@"MyData.db"))
             {
@@ -92,7 +92,7 @@ namespace Separator.Menu
         {
             using (var db = new LiteDatabase(@"MyData.db"))
             {
-                Page deletePage = new Page(myConsole);
+                Page deletePage = new Page();
                 var col = db.GetCollection<Group>("group");
                 var groupAll = col.FindAll();
                 foreach (Group g in groupAll)
@@ -101,12 +101,11 @@ namespace Separator.Menu
                 }
                 deletePage.Display();                
             }
-            StartMenu();
         }
 
         private Page Create_welcome_Page()
         {
-            Page welcome = new Page(myConsole);
+            Page welcome = new Page();
             welcome.Add("New day, new group", () => CreateGroup());
             welcome.Add("Find my group", () => FindGroup());
             welcome.Add("Delete group", () => DeleteGroup());
@@ -119,8 +118,7 @@ namespace Separator.Menu
         {
             while (!exit)
             {
-                myConsole.Clear();
-                myConsole.WriteLine("Welcome to Separator\n It is myConsole app that can help you split the bill with your friend\n");
+                Console.WriteLine("Welcome to Separator\n It is myConsole app that can help you split the bill with your friend\n");
                 Page welcome = Create_welcome_Page();
                 welcome.Display();
                 if (!exit)
@@ -131,7 +129,7 @@ namespace Separator.Menu
                         var col = db.GetCollection<Group>("current_group");
                         current = col.FindOne(Query.All());
                     }
-                    Main_page main = new Main_page(current, myConsole);
+                    Main_page main = new Main_page(current);
                     main.Start();
                 }
                
@@ -140,14 +138,6 @@ namespace Separator.Menu
             
         }
 
-        public Menu(IConsole console)
-        {
-            myConsole = console;
-        }
-
-        public Menu()
-        {
-            myConsole = new MyConsole();
-        }
+    
     }
 }

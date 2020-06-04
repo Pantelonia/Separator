@@ -8,7 +8,6 @@ namespace Separator
 {
     public class Friend
     {
-        private IConsole myConsole;
         private string name;
         public List<Dish> dishes;
        
@@ -29,11 +28,9 @@ namespace Separator
         }
         
         public void Add_dish()
-        {
-            myConsole.WriteLine("Input name of dish");
-            string name = myConsole.ReadLine();
-            myConsole.WriteLine("Input cost");
-            int cost = int.Parse(myConsole.ReadLine());
+        {            
+            string name = Input.ReadString("Input name of dish");
+            int cost = Input.ReadInt("Input cost", min: 0, max: Int32.MaxValue);
             dishes.Add(new Dish(name, cost));
 
         }
@@ -45,7 +42,7 @@ namespace Separator
         
             foreach(Dish dish in dishes)
             {
-                myConsole.WriteLine(dish.Name);
+                Console.WriteLine(dish.Name);
             }
         }
         public decimal TakeCost()
@@ -59,11 +56,9 @@ namespace Separator
         }
 
         public Friend() : this("Unnamed") { }
-        public Friend(string name) : this(name, new MyConsole()) { }
-        public Friend(string name, IConsole console)
+        public Friend(string name)
         {
             Name = name;
-            myConsole = console;
             dishes = new List<Dish>();
         }
 
