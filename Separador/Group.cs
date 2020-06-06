@@ -91,6 +91,15 @@ namespace Separator
                 Console.WriteLine($"Name of friend:{friend.Name}");
             }
         }
+        public void ShowAllDish()
+        {
+            foreach(Friend f in Friends)
+            {
+                Console.WriteLine($"\n{f.Name}'s dishes:\n");
+                foreach (Dish dish in f.dishes)
+                    Console.WriteLine($"Name:{dish.Name} Cost:{dish.Cost}");
+            }
+        }
 
         public Group() : this("Unnamed") { }
         public Group(string name) : this(name, 0) { }

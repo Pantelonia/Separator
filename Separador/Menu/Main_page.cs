@@ -81,6 +81,11 @@ namespace Separator.Menu
             
         }
 
+        public void ShowDish()
+        {
+            Group.ShowAllDish();
+        }
+
         public int Start()
         {
             while (!exit)
@@ -94,6 +99,7 @@ namespace Separator.Menu
         {
             Add("Add new friend", () => AddNewFriend());
             Add("Add new dish", () => AddNewDish());
+            Add("Show all friend's dish", () => ShowDish());
             Add("Banish a friend", () => DeleteFriend());
             Add("Show me my friend", () => ShaowAllFriend());
             Add("Give me the bill", () => TakeBill());

@@ -107,7 +107,8 @@ namespace SeparatorTest
         {
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
-                .Returns("1") //try find some group, but create new group because groupd  not vreated yet
+                .Returns("4") //Delete all
+                .Returns("1")//try find some group, but create new group because groupd  not vreated yet
                 .Returns("groups") // name of group
                 .Returns("paul")// name of friend
                 .Returns("7") // exit from main page
