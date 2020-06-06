@@ -21,7 +21,7 @@ namespace SeparatorTest
             consoleMok.SetupSequence(c => c.ReadLine())
                 .Returns("1")
                 .Returns("Lea")
-                .Returns("7");
+                .Returns("8");
             Input.myConsole = consoleMok.Object;
             Group group = new Group("Pokorili");
             group.AddNewFriend("Blabla");
@@ -37,11 +37,11 @@ namespace SeparatorTest
         {
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
+                .Returns("5")
                 .Returns("4")
-                .Returns("3")
                 .Returns("1")
-                .Returns("4")
-                .Returns("7");
+                .Returns("5")
+                .Returns("8");
             Input.myConsole = consoleMok.Object;
             Group group = new Group("Pokorili");
             group.AddNewFriend("Blabla");
@@ -68,7 +68,7 @@ namespace SeparatorTest
                 .Returns("2")
                 .Returns("Pizza")
                 .Returns("500")
-                .Returns("7");
+                .Returns("8");
             Input.myConsole = consoleMok.Object;
             Group group = new Group("Pokorili");
             group.AddNewFriend("Blabla");
@@ -93,9 +93,9 @@ namespace SeparatorTest
                 .Returns("2")
                 .Returns("Pizza")
                 .Returns("500")
-                .Returns("5")
                 .Returns("6")
-                .Returns("7");
+                .Returns("7")
+                .Returns("8");
             Input.myConsole = consoleMok.Object;
             Group group = new Group("Pokorili");
             group.AddNewFriend("Blabla");
@@ -104,7 +104,32 @@ namespace SeparatorTest
             var output = main.Start();
             Assert.AreEqual(0, output);
             Assert.AreEqual(545, main.Group.Total_cost);
+            Assert.AreEqual(295, main.Group.Friends[0].TakeCost());
 
+        }
+        [TestMethod]
+        public void ShowAllDish()
+        {
+            var consoleMok = new Mock<MyConsole>().As<IConsole>();
+            consoleMok.SetupSequence(c => c.ReadLine())
+                .Returns("2")
+                .Returns("1")
+                .Returns("1")
+                .Returns("Tea")
+                .Returns("45")
+                .Returns("2")
+                .Returns("2")
+                .Returns("Pizza")
+                .Returns("500")
+                .Returns("3")
+                .Returns("8");
+            Input.myConsole = consoleMok.Object;
+            Group group = new Group("Pokorili");
+            group.AddNewFriend("Blabla");
+            group.AddNewFriend("Lea");
+            Main_page main = new Main_page(group);
+            var output = main.Start();
+            Assert.AreEqual(0, output);
         }
 
 

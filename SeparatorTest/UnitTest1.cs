@@ -60,7 +60,7 @@ namespace SeparatorTest
             Group group;
             using (var db = new LiteDatabase(@"MyData.db"))
             {
-                var col = db.GetCollection<Group>("current_group");
+                var col = db.GetCollection<Group>("group");
                 group = col.FindOne(x => x.Name.Equals("Group"));
             }
             Group group2 = new Group("Group");
@@ -75,7 +75,7 @@ namespace SeparatorTest
                 .Returns("2") //try find some group, but create new group because groupd  not vreated yet
                 .Returns("group") // name of group
                 .Returns("paul")// name of friend
-                .Returns("7") // exit from main page
+                .Returns("8") // exit from main page
                 .Returns("5"); // exit
             Input.myConsole = consoleMok.Object;
             Menu menu = new Menu();
@@ -95,7 +95,7 @@ namespace SeparatorTest
         {
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
-                .Returns("7")//input outofarray
+                .Returns("8")//input outofarray
                 .Returns("5");//input correct number and exit
             Input.myConsole = consoleMok.Object;
             Menu menu = new Menu();
@@ -111,10 +111,10 @@ namespace SeparatorTest
                 .Returns("1")//try find some group, but create new group because groupd  not vreated yet
                 .Returns("groups") // name of group
                 .Returns("paul")// name of friend
-                .Returns("7") // exit from main page
+                .Returns("8") // exit from main page
                 .Returns("3")// delete all group
                 .Returns("1")// delete all group
-                .Returns("7") // exit from main pag
+                .Returns("8") // exit from main pag
                 .Returns("5"); // exit
             Input.myConsole = consoleMok.Object;
             Menu menu = new Menu();
