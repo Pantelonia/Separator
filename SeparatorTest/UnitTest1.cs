@@ -19,8 +19,8 @@ namespace SeparatorTest
         {
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
-                .Returns("4")
-                .Returns("5");
+                .Returns("4") //delete all groups
+                .Returns("5"); // exit 
             Input.myConsole = consoleMok.Object;
             Menu menu = new Menu();
             Assert.AreEqual(0, menu.StartMenu());
@@ -31,8 +31,8 @@ namespace SeparatorTest
 
             var consoleMok = new Mock<MyConsole>().As<IConsole>();
             consoleMok.SetupSequence(c => c.ReadLine())
-                .Returns("Gr")
-                .Returns("Pl");
+                .Returns("Gr") // Name of group
+                .Returns("Pl"); // Name of friends
             Input.myConsole = consoleMok.Object;
             Menu menu = new Menu();
             menu.CreateGroup();
